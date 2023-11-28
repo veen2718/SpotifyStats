@@ -1,0 +1,7 @@
+/stats/
+Spotify Account Data/
+history.json
+cache
+apikeys.py
+/__pycache__
+.cache
