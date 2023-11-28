@@ -11,6 +11,7 @@ Go to https://www.spotify.com/ca-en/account/privacy#/, and request your Account 
 
 ### vars.py
 There are multiple variables the user can change in the vars.py file
+
 `mMin`: This is the number of minutes a song will have to play before the song counts as a track
 
 `getDownloadedData`: If this is true, it will check the Spotify Account Data folder and read data from there, else it will read from history.json. If the Spotify Account Data folder has been deleted, it will act as though this is false.
