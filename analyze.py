@@ -52,7 +52,7 @@ def analyze(StreamingHistory):
 
 
     #Organizing Track Data
-    sortedStats = sorted(statsTracks.items(),key=lambda x:x[1][0], reverse=True)
+    sortedStats = sorted(statsTracks.items(),key=lambda x:x[1][sortBy], reverse=True)
     sortedStats2 = [[i+1,item[0][0], item[0][1],item[1][0],round(item[1][1],2)] for i,item in enumerate(sortedStats)]
 
     sumCount = sum([item[3] for item in sortedStats2])
