@@ -1,3 +1,4 @@
+from vars import mMin, sortBy
 
 def analyze(StreamingHistory):
     statsArtists = {}
@@ -7,7 +8,7 @@ def analyze(StreamingHistory):
         mPlayed = data['msPlayed']/60000
         trackName = data['trackName']
         count = 0
-        if mPlayed > 0.15:
+        if mPlayed >= mMin:
             count = 1
         if artistName != 'Unknown Artist':
         #storing data for artists
@@ -30,8 +31,10 @@ def analyze(StreamingHistory):
         #print(key,statsTracks[key])
 
     #Organizing Arist data
-    sortedStats = sorted(statsArtists.items(),key=lambda x:x[1][0], reverse=True)
+
+    sortedStats = sorted(statsArtists.items(),key=lambda x:x[1][sortBy], reverse=True)
     sortedStats2 = [[item[0],item[1][0],item[1][1]] for item in sortedStats]
+
 
 
     sumCount = sum([item[1] for item in sortedStats2])

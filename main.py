@@ -1,13 +1,26 @@
 from analyze import analyze
 from table import generate
-from read import get
+from read import get1,get2
 from write import write
+from vars import getDownloadedData
 
+from os import path
 
 def main():
-    StreamingHistory = get()
 
-    write(StreamingHistory)
+    filePath = path.abspath(__file__)
+    fileDir = path.dirname(filePath)#The directory the python file is in
+
+    dataDir = path.join(fileDir, 'Spotify Account Data')
+    if path.exists(dataDir) and getDownloadedData:
+        StreamingHistory = get1()
+        write(StreamingHistory)
+    else:
+        StreamingHistory = get2()
+    
+        
+
+    
 
     tableData = analyze(StreamingHistory)
     artistStats = tableData[0]

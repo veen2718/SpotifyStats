@@ -5,3 +5,4 @@ cache
 apikeys.py
 /__pycache__
 .cache
+/packages
