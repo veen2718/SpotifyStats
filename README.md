@@ -31,9 +31,9 @@ After creation, you can see your Client ID and Client Secret, which you will nee
 
 Do all the following steps if you want to use the Spotify API:
 
-    In the release folder, create a file called 'apikeys.py'
+- In the release folder, create a file called 'apikeys.py'
 
-    in the file add the following lines of code
+- in the file add the following lines of code
 
     ```python
 
@@ -42,11 +42,11 @@ Do all the following steps if you want to use the Spotify API:
 
     ```
 
-    Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with your Client ID and Secret from earlier. 
+- Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with your Client ID and Secret from earlier. 
 
 Do the next step regardless of whether or not you want to use the Spotify API:
 
-    Run ``pip  install -r requirements.txt``, which will install required libraries
+- Run ``pip  install -r requirements.txt``, which will install required libraries
 
 
 ### Usage
