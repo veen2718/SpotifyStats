@@ -53,7 +53,7 @@ Do the next step regardless of whether or not you want to use the Spotify API:
 
 Run main.py, and a folder will be created called *stats*. In that folder there shoud be an *artists.txt* and *tracks.txt*, containing a table with the data. Once table is generated, the 'Spotify Account Data' folder will be deleted,and a history.json will be created to store the data. 
 
-Later, you may request your data again, and copy the 'Spotify Account Data' folder into the SpotifyStats folder. Running main.py again will merge any new history from the 'Spotify Account Data' with your old history.
+Later, you may request your data again, and copy the 'Spotify Account Data' folder into the SpotifyAnalyze folder. Running main.py again will merge any new history from the 'Spotify Account Data' with your old history.
 
 Every time you run main.py, it will make an API call, and add the 50 most recently played songs to the history.json. Because of limits of the Spotify API you cannot get the entire history from the API, so I recommend that you use a command scheduler to schedule the main.py script to run frequently. 
 
