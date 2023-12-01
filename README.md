@@ -82,3 +82,4 @@ When updating to a newer version, simply copy the history.json file into the fol
 
 - GUI
 - Graph with interest in songs/artists over time
+- Google Drive Backup 
