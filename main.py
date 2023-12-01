@@ -3,9 +3,12 @@ from table import generate
 from read import get1,get2
 from write import write
 from vars import getDownloadedData, useAPI
-from apicall import get_tracks
 from os import path
 from shutil import rmtree
+
+if useAPI:
+    from apicall import get_tracks
+
 
 def main():
 
