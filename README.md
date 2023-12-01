@@ -67,6 +67,11 @@ There are multiple variables the user can change in the vars.py file
 `sortBy`: If this is set to 0, it will sort the table by the number of times a track is played. If this is set to 1, it will sort the table by the number of minutes a track is played for. 
 
 `useAPI`: If this is False, will not use the Spotify API, and will just use downloaded data
+
+
+### Updating to newer version
+When updating to a newer version, simply copy the history.json file into the folder with the new release 
+
 ## Current Features
 
 - Generate table for artist data including artist name, minutes played, times their tracks are played
