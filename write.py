@@ -2,7 +2,10 @@ from datetime import datetime
 import json
 
 def parse_time(data,time='endTime'):
-    return datetime.strptime(data[time], '%Y-%m-%d %H:%M')
+    try:
+        return datetime.strptime(data[time], '%Y-%m-%d %H:%M:%S')
+    except:
+        return datetime.strptime(data[time], '%Y-%m-%d %H:%M')
 
 def write(history):
     newHistory = []

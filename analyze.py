@@ -1,11 +1,24 @@
 from vars import mMin, sortBy
 
+
+def merge(a, b):
+    newList = []
+    for item in b:
+        if item not in a:
+            newList.append(item)
+    print(f"Merged Succesfully adding {len(newList)} items")
+    return a + newList
+    
+
 def analyze(StreamingHistory):
     statsArtists = {}
     statsTracks = {}
     for data in StreamingHistory:
         artistName = data['artistName']
-        mPlayed = data['msPlayed']/60000
+        if data['msPlayed']:
+            mPlayed = data['msPlayed']/60000
+        elif data['duration_ms']:
+            mPlayed = data['duration_ms']/60000
         trackName = data['trackName']
         count = 0
         if mPlayed >= mMin:

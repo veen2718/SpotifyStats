@@ -24,12 +24,11 @@ def get2(): #Getting history from history.json
             newData = {
                 'endTime':data['endTime'],
                 'artistName':data['artistName'],
-                'trackName': data['trackName']
+                'trackName': data['trackName'],
+                'msPlayed':data['msPlayed'],
+                'duration_ms':data['duration_ms'],
                        }
-            if data['msPlayed'] == None:
-                newData['msPlayed'] == data['duration_ms']
-            else:
-                newData['msPlayed'] = data['msPlayed']
+            
             StreamingHistory.append(newData)
         
         return StreamingHistory

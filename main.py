@@ -1,10 +1,11 @@
-from analyze import analyze
+from analyze import analyze, merge
 from table import generate
 from read import get1,get2
 from write import write
 from vars import getDownloadedData
-
+from apicall import get_tracks
 from os import path
+from shutil import rmtree
 
 def main():
 
@@ -13,10 +14,12 @@ def main():
 
     dataDir = path.join(fileDir, 'Spotify Account Data')
     if path.exists(dataDir) and getDownloadedData:
-        StreamingHistory = get1()
+        StreamingHistory = merge(merge(get1(), get_tracks()),get2())
         write(StreamingHistory)
+        rmtree(dataDir)
     else:
-        StreamingHistory = get2()
+        StreamingHistory = merge(get2(), get_tracks())
+        write(StreamingHistory)
     
         
 
