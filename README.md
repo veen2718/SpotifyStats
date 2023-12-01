@@ -16,6 +16,9 @@ Copy the entire folder into the folder with the python script.
 
 ### Getting Spotify API Client ID and Client Secret
 
+If you do not want to use the Spotify API and only want to get data from downloading it from Spotify's website, you can change the value of the ``useAPI`` in the vars.py file to False
+
+
 Go to https://developer.spotify.com/dashboard/applications
 
 Log in with your spotify account
@@ -26,19 +29,24 @@ After creation, you can see your Client ID and Client Secret, which you will nee
 
 ### Setting up the python script
 
-In the release folder, create a file called 'apikeys.py'
+Do all the following steps if you want to use the Spotify API:
 
-in the file add the following lines of code
+    In the release folder, create a file called 'apikeys.py'
 
-```python
+    in the file add the following lines of code
 
-client_id = "YOUR_CLIENT_ID"
-client_secret = "YOUR_CLIENT_SECRET"
+    ```python
 
-```
-Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with your Client ID and Secret from earlier. 
+    client_id = "YOUR_CLIENT_ID"
+    client_secret = "YOUR_CLIENT_SECRET"
 
-Run ``pip  install -r requirements.txt``, which will install required libraries
+    ```
+
+    Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with your Client ID and Secret from earlier. 
+
+Do the next step regardless of whether or not you want to use the Spotify API:
+
+    Run ``pip  install -r requirements.txt``, which will install required libraries
 
 
 ### Usage
