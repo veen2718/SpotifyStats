@@ -7,4 +7,3 @@ apikeys.py
 .cache
 /packages
 /apiEnv
-/history/

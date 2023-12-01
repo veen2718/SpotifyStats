@@ -34,14 +34,12 @@ def analyze(StreamingHistory):
 
             #storing data for tracks
             key = (trackName, artistName)
-            #print(key)
             if key in statsTracks:
                 oldCount = statsTracks[key][0]
                 oldM = statsTracks[key][1]
                 statsTracks[key] = [oldCount + count, oldM + mPlayed]
             else:
                 statsTracks[key] = [count, mPlayed]
-        #print(key,statsTracks[key])
 
     #Organizing Arist data
 

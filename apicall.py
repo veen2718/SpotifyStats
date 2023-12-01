@@ -8,7 +8,6 @@ from apikeys import client_id, client_secret
 
 
 def timefix(spotify_timestamp):
-    # Example timestamp from Spotify API
     # Parse the timestamp as a UTC datetime object
     utc_time = datetime.strptime(spotify_timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
 
@@ -38,7 +37,6 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
 def get_tracks():
   tracks = []
   recent_tracks = sp.current_user_recently_played(limit=50)
-  #print(recent_tracks)
   for track in recent_tracks['items']:
      tracks.append({
         "endTime":timefix(track['played_at']),
