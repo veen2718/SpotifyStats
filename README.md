@@ -1,4 +1,4 @@
-# SpotifyStats
+# Unwrapped - Spotify Stats
 
 A python script that gives detailed statistics about your Spotify history
 
