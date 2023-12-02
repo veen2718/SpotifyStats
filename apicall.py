@@ -4,7 +4,7 @@ from datetime import datetime
 import pytz
 import json
 
-from apikeys import client_id, client_secret
+from apikeys import client_id_spotify, client_secret_spotify
 
 
 def timefix(spotify_timestamp):
@@ -21,8 +21,8 @@ def timefix(spotify_timestamp):
     return pdt_time.strftime("%Y-%m-%d %H:%M:%S")
 
 
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
-                                               client_secret=client_secret,
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id_spotify,
+                                               client_secret=client_secret_spotify,
                                                redirect_uri="http://localhost:8888/callback",
                                                scope="user-read-recently-played"))
 

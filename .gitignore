@@ -9,3 +9,5 @@ apikeys.py
 /apiEnv
 logs.txt
 /backups
+googleapi.json
+/env/

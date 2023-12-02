@@ -12,7 +12,7 @@ Extract the zip.
 Go to https://www.spotify.com/ca-en/account/privacy#/
 Request your Account Data. Within 5 days you should get an email containing a zip with your data. 
 There is a folder in that zip called 'Spotify Account Data'. That folder should contain several files including one or more files named similar to 'StreamingHistory0.json'. 
-Copy the entire folder into the folder with the python script. 
+Copy the entire folder into the 'Unwrapped' folder with the python script. 
 
 ### Getting Spotify API Client ID and Client Secret
 
@@ -26,6 +26,18 @@ Log in with your spotify account
 Click on 'create an app', and pick an 'App name' and 'App description', the name and description do not matter
 
 After creation, you can see your Client ID and Client Secret, which you will need in the next step
+
+### Getting Google Drive API
+
+Go to https://console.cloud.google.com/, and create a project. In the dashboard, navigate to 'Library' and then search for the "Google Drive API" and enable it. 
+
+Go to OAuth Consent Screen, and set user type to external. Then click continue, and choose any app name, and your support email. You don't need to choose a logo file, and leave the App domain section blank. Put your email under Developer Contact information. Save and continue.
+
+Now in scopes, click 'ADD OR REMOVE SCOPES'. Under Manually add scopes, paste this entire url: "https://www.googleapis.com/auth/drive.file", make sure to keep the https://, and click 'ADD TO TABLE' and then 'UPDATE'. Click Save and Continue. 
+
+Now in Test users, click Add Users. Enter the gmail address you want your data to be backed up to, and click enter. Click Save and Continue. 
+
+Now, in the sidebar, click Credentials. Now click 'CREATE CREDENTIALS' and click 'OAuth client ID'. For application type, select Desktop App. For Name, put whatever. Click CREATE. There will be a popup, saying OAuth client created. Click download json, and make sure that you have renamed it as 'googleapi.json' and that you have saved it in the Unwrapped folder. 
 
 ### Setting up the python script
 
