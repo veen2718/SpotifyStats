@@ -8,3 +8,4 @@ apikeys.py
 /releases
 /apiEnv
 logs.txt
+/backups

@@ -17,8 +17,15 @@ def get1(): #Getting history from Downloaded Data
     return StreamingHistory
 
 def get2(): #Getting history from history.json
-    with open('history.json','w+') as history:
-        json_data = json.loads(history.read())
+    if 'history.json' not in os.listdir():
+        print("Creating history.json file")
+        with open('history.json','w') as history:
+            pass
+    with open('history.json','r') as history:
+        data = history.read()
+        json_data = []
+        if data != "":
+            json_data = json.loads(history.read())
         StreamingHistory = []
         for data in json_data:
             newData = {
