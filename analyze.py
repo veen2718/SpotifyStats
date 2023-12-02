@@ -1,5 +1,6 @@
 from vars import mMin, sortBy
-
+import pytz
+from datetime import datetime
 
 def merge(a, b):
     newList = []
@@ -7,6 +8,13 @@ def merge(a, b):
         if item not in a:
             newList.append(item)
     print(f"Merged Succesfully adding {len(newList)} items")
+    pdt_zone = pytz.timezone("America/Los_Angeles") 
+    currentTime = datetime.now(pdt_zone).strftime('%Y-%m-%d %H:%M:%S %Z')
+    if len(newList) > 0:
+        with open('logs.txt','a') as logs:
+            logs.write(f"""
+    Merged {len(newList)} files at {currentTime}
+                        """)  
     return a + newList
     
 

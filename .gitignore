@@ -7,3 +7,4 @@ apikeys.py
 .cache
 /packages
 /apiEnv
+logs.txt

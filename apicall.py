@@ -44,9 +44,7 @@ def get_tracks():
         "artistName":track['track']['artists'][0]['name'],
         "duration_ms":track['track']['duration_ms'],
         "msPlayed":None,
-     })  
+     })
+    
   print("Got tracks from Spotify API")
   return tracks
-
-x = get_tracks()
-print(json.dumps(x,indent=4))
