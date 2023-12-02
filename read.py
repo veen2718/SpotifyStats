@@ -25,7 +25,7 @@ def get2(): #Getting history from history.json
         data = history.read()
         json_data = []
         if data != "":
-            json_data = json.loads(history.read())
+            json_data = json.loads(data)
         StreamingHistory = []
         for data in json_data:
             newData = {
