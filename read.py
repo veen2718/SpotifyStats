@@ -17,7 +17,7 @@ def get1(): #Getting history from Downloaded Data
     return StreamingHistory
 
 def get2(): #Getting history from history.json
-    with open('history.json','r') as history:
+    with open('history.json','w+') as history:
         json_data = json.loads(history.read())
         StreamingHistory = []
         for data in json_data:

@@ -21,12 +21,6 @@ def timefix(spotify_timestamp):
     return pdt_time.strftime("%Y-%m-%d %H:%M:%S")
 
 
-
-with open('history.json','r') as historyjson:
-   jsondata = json.loads(historyjson.read())
-   finalDate = jsondata[len(jsondata)-1]['endTime']
-
-
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
                                                client_secret=client_secret,
                                                redirect_uri="http://localhost:8888/callback",

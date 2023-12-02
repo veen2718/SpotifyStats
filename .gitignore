@@ -5,6 +5,6 @@ cache
 apikeys.py
 /__pycache__
 .cache
-/packages
+/releases
 /apiEnv
 logs.txt

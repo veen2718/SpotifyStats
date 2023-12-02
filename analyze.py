@@ -1,6 +1,7 @@
 from vars import mMin, sortBy
 import pytz
 from datetime import datetime
+from read import get2
 
 def merge(a, b):
     newList = []
@@ -13,7 +14,7 @@ def merge(a, b):
     if len(newList) > 0:
         with open('logs.txt','a') as logs:
             logs.write(f"""
-    Merged {len(newList)} files at {currentTime}
+    Added {len(newList)} files at {currentTime}. Total songs are {len(get2())}
                         """)  
     return a + newList
     
@@ -23,7 +24,7 @@ def analyze(StreamingHistory):
     statsTracks = {}
     for data in StreamingHistory:
         artistName = data['artistName']
-        if data['msPlayed']:
+        if data['msPlayed'] is not None:
             mPlayed = data['msPlayed']/60000
         elif data['duration_ms']:
             mPlayed = data['duration_ms']/60000
