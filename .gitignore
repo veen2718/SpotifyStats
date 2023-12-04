@@ -11,3 +11,5 @@ logs.txt
 /backups
 googleapi.json
 /env/
+token.json
+fileId.json

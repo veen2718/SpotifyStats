@@ -15,7 +15,8 @@ def merge(a, b):
         with open('logs.txt','a') as logs:
             logs.write(f"""
     Added {len(newList)} files at {currentTime}. Total songs are {len(get2())}
-                        """)  
+                        """)
+    print(f"Added {len(newList)} files at {currentTime}. Total songs are {len(get2())}")  
     return a + newList
     
 
