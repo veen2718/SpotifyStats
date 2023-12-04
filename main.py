@@ -1,4 +1,5 @@
-from os import path
+#!/usr/bin/env python3
+from os import path, chdir
 from shutil import rmtree
 
 from analyze import analyze, merge
@@ -13,7 +14,7 @@ if useAPI:
 
 
 def main():
-
+    chdir(__file__.replace('main.py',""))#When run from the command line in some sort of automation like crontab, will change directory to this directory so that all other important files are there
     filePath = path.abspath(__file__)
     fileDir = path.dirname(filePath)#The directory the python file is in
 
