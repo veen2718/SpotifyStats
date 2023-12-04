@@ -125,6 +125,8 @@ def downloadFile(service, fileId, fileName):
 
 
 def getLocalMDate(fileName): #Get the time that a local file was modified
+    if not path.exists(fileName):
+        return None
     time =  path.getmtime(fileName)
     return datetime.fromtimestamp(time)
 
@@ -201,6 +203,10 @@ def downloadFromDrive():
         logsTxtId = ids['logsTxtId']
 
         d1 = getLocalMDate('history.json') #The time that the local history.json was last modified
+        if not d1:
+            downloadFile(service,historyJsonId,'history.json')
+            downloadFile(service,logsTxtId,'logs.txt')
+            return
         d2 = getRemoteMDate(service,historyJsonId) #The UTC time that the remote history.json was last modified
         localTime = time()
 
