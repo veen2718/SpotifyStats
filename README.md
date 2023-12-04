@@ -59,7 +59,7 @@ Do all the following steps if you want to use the Spotify API:
 
     ```
 
-- Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with your Client ID and Secret from earlier. 
+- Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with your Spotify Client ID and Secret from earlier. 
 
 Do the next step regardless of whether or not you want to use the Spotify API:
 
@@ -105,4 +105,4 @@ When updating to a newer version, simply copy the history.json file into the fol
 
 - GUI
 - Graph with interest in songs/artists over time
-- Google Drive Backup 
+- Android App
