@@ -177,7 +177,3 @@ def backupToDrive():
     historyJsonId = uploadFile(service,folderId,'history.json','history.json','application/json')
     logsTxtId = uploadFile(service,folderId,'logs.txt','logs.txt','text/plain')
     print(f"Uploaded history.json ({historyJsonId}) and logs.txt ({logsTxtId}) to drive {folderId}")
-
-
-
-downloadFromDrive()
