@@ -37,9 +37,12 @@ Go to OAuth Consent Screen, and set user type to external. Then click continue, 
 
 Now in scopes, click 'ADD OR REMOVE SCOPES'. Under Manually add scopes, paste this entire url: "https://www.googleapis.com/auth/drive.file", make sure to keep the https://, and click 'ADD TO TABLE' and then 'UPDATE'. Click Save and Continue. 
 
-Now in Test users, click Add Users. Enter the gmail address you want your data to be backed up to, and click enter. Click Save and Continue. 
+Now in Test users, click Add Users. Enter the gmail address you want your data to be backed up to, and click enter. (This gmail account can be the same one that you are using to make this app) Click Save and Continue. 
 
 Now, in the sidebar, click Credentials. Now click 'CREATE CREDENTIALS' and click 'OAuth client ID'. For application type, select Desktop App. For Name, put whatever. Click CREATE. There will be a popup, saying OAuth client created. Click download json, and make sure that you have renamed it as 'googleapi.json' and that you have saved it in the Unwrapped folder. 
+
+
+Now that you have the credentials, you can run main.py, It will say 'Please visit this URL to authorize this application' or just open a link directly in your browser.When the link is opened it will say something along the lines of 'This app hasn't been verified by google'. This is normal, and you know the app is completely safe as you have just set up up in the google cloud console. Just continue, and then sign into a gmail account that you made a 'Test User', in a previous step. If you get a 'something went wrong', copy the link given into an incognito tab and try again. From there you should be able to give this app permission to edit its own files inside your google drive. 
 
 ### Setting up the python script
 
@@ -71,6 +74,11 @@ Later, you may request your data again, and copy the 'Spotify Account Data' fold
 
 Every time you run main.py, it will make an API call, and add the 50 most recently played songs to the history.json. Because of limits of the Spotify API you cannot get the entire history from the API, so I recommend that you use a command scheduler to schedule the main.py script to run frequently. 
 
+
+### Automation
+I highly recommend that you automate this script to run frequently. This is because through Spotify's API you can only get the 50 most recently played songs from a user's history. This is why you requested and downloaded your data from Spotify because that way you have a lot more of your history. But by frequentely calling Spotify's API and storing the songs when we can, we can build a near complete record of streaming history which can then be analyzed by this script. For Linux, MacOS or WSL you can use Crontab to schedule this file to run, or on MacOS you can use Automator and on Windows you can use Task Scheduler. 
+
+
 ### vars.py
 There are multiple variables the user can change in the vars.py file
 
@@ -82,6 +90,7 @@ There are multiple variables the user can change in the vars.py file
 
 `useAPI`: If this is False, will not use the Spotify API, and will just use downloaded data
 
+`useGoogleDrive`: If this is True, it will use Google Drive for backing up the history.json
 
 ### Updating to newer version
 When updating to a newer version, simply copy the history.json file into the folder with the new release 
