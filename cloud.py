@@ -1,11 +1,18 @@
 import json
+from os import path,listdir
+from io import BytesIO
+from datetime import datetime,timedelta
+from dateutil import parser
+from time import time
+from pytz import utc
+
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
-from googleapiclient.http import MediaFileUpload
+from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 
-from os import path,listdir
+
 
 
 folderName = ''
@@ -103,6 +110,29 @@ def uploadFile(service, folderId,fileName,filePath, mimeType):
 
 
 
+def downloadFile(service, fileId, fileName):
+    request = service.files().get_media(fileId=fileId)
+    fh = BytesIO() #Creates an in-memory binary stream to temporarily store downloaded file content
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while done is False:
+        status, done = downloader.next_chunk()
+        print("Download %d%%" %int(status.progress() * 100))
+    with open(fileName, 'wb') as f:
+        fh.seek(0)
+        f.write(fh.read())
+
+
+
+def getLocalMDate(fileName): #Get the time that a local file was modified
+    time =  path.getmtime(fileName)
+    return datetime.fromtimestamp(time)
+
+def getRemoteMDate(service, fileId): #Get the time that a remote file was modified
+    fileMetaData = service.files().get(fileId=fileId, fields='modifiedTime').execute()
+    lastModifiedTime = fileMetaData['modifiedTime']
+    readableLastModifiedTime = parser.parse(lastModifiedTime)
+    return readableLastModifiedTime
 
 
 
@@ -131,8 +161,10 @@ def writeAllId(service):
     folderId = getId(service,'unwrappedUserData','application/vnd.google-apps.folder')
     historyJsonId = getId(service,'history.json','application/json',folderId)
     logsTxtId = getId(service,'logs.txt','text/plain',folderId)
-    writeId(folderId,historyJsonId,logsTxtId)
-
+    if folderId:
+        writeId(folderId,historyJsonId,logsTxtId)
+        return True
+    return False
 
 
 
@@ -145,28 +177,43 @@ def downloadFromDrive():
     credit()
     service = build('drive','v3',credentials=creds)
 
-
+    written = True
     if 'fileId.json' not in listdir(): 
-        writeAllId(service)
+        written = writeAllId(service)
         #If a fileId.json does not exist, create it and write to it
 
-    with open('fileId.json','r') as Id:
-        x = Id.read()
-        if x != "":
-            ids = json.loads(x)
-        else:
-            ids = None
-        #If the file exists, but is empty, let ids=None
-
-    if not ids:
-        #If the file is empty, write to it
-        writeAllId(service)
+    if written:
         with open('fileId.json','r') as Id:
-           ids = json.loads(Id.read())
-    
+            x = Id.read()
+            if x != "":
+                ids = json.loads(x)
+            else:
+                ids = None
+            #If the file exists, but is empty, let ids=None
 
+        if not ids:
+            #If the file is empty, write to it
+            writeAllId(service)
+            with open('fileId.json','r') as Id:
+                ids = json.loads(Id.read())
+        
+        historyJsonId = ids['historyJsonId']
+        logsTxtId = ids['logsTxtId']
 
-    
+        d1 = getLocalMDate('history.json') #The time that the local history.json was last modified
+        d2 = getRemoteMDate(service,historyJsonId) #The UTC time that the remote history.json was last modified
+        localTime = time()
+
+        localDatetime = datetime.fromtimestamp(localTime)
+        utcDatetime = datetime.utcfromtimestamp(localTime)
+        offset = localDatetime - utcDatetime
+
+        d1 = utc.localize(d1)
+        d3 = d2 + offset # The timezone-localized time that the remote history.json was last modified
+
+        if d1 < d3:
+            downloadFile(service,historyJsonId,'history.json')
+            downloadFile(service,logsTxtId,'logs.txt')
 
 def backupToDrive():
     global creds

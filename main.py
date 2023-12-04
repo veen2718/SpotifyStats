@@ -1,10 +1,12 @@
+from os import path
+from shutil import rmtree
+
 from analyze import analyze, merge
 from table import generate
 from read import get1,get2
 from write import write
 from vars import getDownloadedData, useAPI
-from os import path
-from shutil import rmtree
+from cloud import downloadFromDrive,backupToDrive
 
 if useAPI:
     from apicall import get_tracks
@@ -16,6 +18,10 @@ def main():
     fileDir = path.dirname(filePath)#The directory the python file is in
 
     dataDir = path.join(fileDir, 'Spotify Account Data')
+
+
+    downloadFromDrive()
+
     if path.exists(dataDir) and getDownloadedData:
         if not useAPI:
             StreamingHistory = merge(get1(),get2())
@@ -30,7 +36,7 @@ def main():
             StreamingHistory = get2()
         write(StreamingHistory)
     
-        
+    backupToDrive()    
 
     
 
