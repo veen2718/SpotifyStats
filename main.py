@@ -20,9 +20,10 @@ def main():
 
     dataDir = path.join(fileDir, 'Spotify Account Data')
 
-
-    downloadFromDrive()
-
+    try:
+        downloadFromDrive()
+    except Exception as e:
+        print(f"An error occured: {e}")
     if path.exists(dataDir) and getDownloadedData:
         if not useAPI:
             StreamingHistory = merge(get1(),get2())
@@ -36,8 +37,11 @@ def main():
         else:
             StreamingHistory = get2()
         write(StreamingHistory)
-    
-    backupToDrive()    
+    try:
+        backupToDrive() 
+    except Exception as e:
+        print(f"An error occured: {e}")
+       
 
     
 

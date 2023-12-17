@@ -25,18 +25,24 @@ global creds
 
 def credit():
     global creds
-    if path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json',SCOPES)
+    try:
+        if path.exists('token.json'):
+            creds = Credentials.from_authorized_user_file('token.json', SCOPES)
 
-    if not creds or not creds.valid: 
-        #Checks if there are valid credentials
-        if creds and creds.expired:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file('googleapi.json',SCOPES)
-            creds = flow.run_local_server(port=5500)
-        with open('token.json','w') as token:
-            token.write(creds.to_json())
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+            else:
+                initiateAuthFlow()
+    except Exception as e:
+        print(f"Authentication error: {e}")
+        initiateAuthFlow()
+
+def initiateAuthFlow():
+    flow = InstalledAppFlow.from_client_secrets_file('googleapi.json', SCOPES)
+    creds = flow.run_local_server(port=5500)
+    with open('token.json', 'w') as token:
+        token.write(creds.to_json())
 
 
 

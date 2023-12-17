@@ -29,6 +29,8 @@ After creation, you can see your Client ID and Client Secret, which you will nee
 
 ### Getting Google Drive API
 
+Note: The API can randomly expire. This means that if you are automating this on multiple devices as suggested, you may need to manually sign-in again. 
+
 The purpose of this is so that you can have this program automated on multiple devices. For example, if you have a laptop and a desktop, you can have the program automated on both devices, so the script can still collect data from spotify when one device isn't being used. Alternatively, if you have something like a Raspberry Pi, you can use that purely for automation, and you can access and view the data from a different computer. 
 
 Go to https://console.cloud.google.com/, and create a project. In the dashboard, navigate to 'Library' and then search for the "Google Drive API" and enable it. 
