@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from os import path, chdir
 from shutil import rmtree
+from sys import exit
 
 from analyze import analyze, merge
 from table import generate
@@ -13,22 +14,34 @@ if useAPI:
     from apicall import get_tracks
 
 
-def main():
+def main(continueAnyways=False):
     chdir(__file__.replace('main.py',""))#When run from the command line in some sort of automation like crontab, will change directory to this directory so that all other important files are there
     filePath = path.abspath(__file__)
     fileDir = path.dirname(filePath)#The directory the python file is in
 
     dataDir = path.join(fileDir, 'Spotify Account Data')
 
-    try:
-        downloadFromDrive()
-    except Exception as e:
-        print(f"An error occured: {e}")
+    
     if path.exists(dataDir) and getDownloadedData:
         if not useAPI:
             StreamingHistory = merge(get1(),get2())
         else:
             StreamingHistory = merge(merge(get1(), get_tracks()),get2())
+        if(StreamingHistory == get2() and not continueAnyways):
+            try:
+                print("program halted as nothing to write")
+                exit()#Exits program to avoid overuse API calls if there are no changes
+            except Exception as e:
+                print(f"This error is expected to occur, program halted as nothing to write: {e}")
+        else:
+            print("Continuing flow")
+            try:
+                downloadFromDrive()
+            except Exception as e:
+                print(f"An error occured: {e}")
+            write(StreamingHistory)
+        
+
         write(StreamingHistory)
         rmtree(dataDir)
     else:
@@ -36,7 +49,22 @@ def main():
             StreamingHistory = merge(get2(), get_tracks())
         else:
             StreamingHistory = get2()
-        write(StreamingHistory)
+        
+        if(StreamingHistory == get2() and not continueAnyways):
+            try:
+                print("program halted as nothing to write")
+                exit()#Exits program to avoid overuse API calls if there are no changes
+               
+            except Exception as e:
+                print(f"This error is expected to occur, program halted as nothing to write: {e}")
+        else:
+            print("Continuing flow")
+            try:
+                downloadFromDrive()
+            except Exception as e:
+                print(f"An error occured: {e}")
+            write(StreamingHistory)
+        
     try:
         backupToDrive() 
     except Exception as e:
