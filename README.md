@@ -73,6 +73,7 @@ Do the next step regardless of whether or not you want to use the Spotify API:
 #### Differences between user.py and main.py
 The main.py is intended for automation and will not download from google drive or upload if there are no files to write. This is different from the user.py, which is intended for the user to use, as it will download from google drive no matter what to ensure the user has the most recent data. In the following instructions, when I mention main.py, I mean use user.py if you are manually running to view your stats, but for automation purposes use main.py.
 
+#### Usage
 
 Run main.py, and a folder will be created called *stats*. In that folder there shoud be an *artists.txt* and *tracks.txt*, containing a table with the data. Once table is generated, the 'Spotify Account Data' folder will be deleted,and a history.json will be created to store the data. 
 
