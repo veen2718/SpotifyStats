@@ -46,6 +46,16 @@ Now, in the sidebar, click Credentials. Now click 'CREATE CREDENTIALS' and click
 
 Now that you have the credentials, you can run main.py, It will say 'Please visit this URL to authorize this application' or just open a link directly in your browser.When the link is opened it will say something along the lines of 'This app hasn't been verified by google'. This is normal, and you know the app is completely safe as you have just set up up in the google cloud console. Just continue, and then sign into a gmail account that you made a 'Test User', in a previous step. If you get a 'something went wrong', copy the link given into an incognito tab and try again. From there you should be able to give this app permission to edit its own files inside your google drive. 
 
+### Getting Pushbullet API
+
+This is for the purpose of notifying you when uploading or downloading to Google Drive fails, as this can happen randomly and will usually require having to manually log in again for the app to continue to function. 
+
+Go to pushbullet.com and sign in. Then go to settings and click 'Create Access Token'. Save this as it wont be visible again and will be needed again later. 
+
+Install the pushbullet mobile app, and sign in with the same account you signed in on pushbullet.com, and it will guide you through setup. 
+
+
+
 ### Setting up the python script
 
 Do all the following steps if you want to use the Spotify API:
@@ -56,8 +66,9 @@ Do all the following steps if you want to use the Spotify API:
 
     ```python
 
-    client_id = "YOUR_CLIENT_ID"
-    client_secret = "YOUR_CLIENT_SECRET"
+    client_id_spotify = "YOUR_SPOTIFY_CLIENT_ID"
+    client_secret_spotify = "YOUR_SPOTIFY_CLIENT_SECRET"
+    access_token_pushbullet = "YOUR_PUSHBULLET_ACCESS_TOKEN"
 
     ```
 
