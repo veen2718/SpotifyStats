@@ -47,7 +47,7 @@ def main(continueAnyways=False):
         rmtree(dataDir)
     else:
         if useAPI:
-            StreamingHistory = merge(get2(), get_tracks())
+            StreamingHistory, length = merge(get2(), get_tracks(),True)
         else:
             StreamingHistory = get2()
         
@@ -64,6 +64,7 @@ def main(continueAnyways=False):
                 downloadFromDrive()
             except Exception as e:
                 print(f"An error occured: {e}")
+            log(length)
             write(StreamingHistory)
         
     try:
