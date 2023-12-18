@@ -1,11 +1,27 @@
 from datetime import datetime
 import json
+import pytz
+
+from read import get2
 
 def parse_time(data,time='endTime'):
     try:
         return datetime.strptime(data[time], '%Y-%m-%d %H:%M:%S')
     except:
         return datetime.strptime(data[time], '%Y-%m-%d %H:%M')
+
+
+def log(length):
+    pdt_zone = pytz.timezone("America/Los_Angeles") 
+    currentTime = datetime.now(pdt_zone).strftime('%Y-%m-%d %H:%M:%S %Z')
+    if length > 0:
+        with open('logs.txt','a') as logs:
+            logs.write(f"""
+    Added {length} files at {currentTime}. Total songs are {len(get2())}
+                        """)
+    print(f"Added {length} files at {currentTime}. Total songs are {len(get2())}")  
+
+
 
 def write(history):
     newHistory = []

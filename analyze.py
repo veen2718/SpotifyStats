@@ -3,7 +3,7 @@ import pytz
 from datetime import datetime
 from read import get2
 
-def merge(a, b):
+def merge(a, b,returnNumber=False):
     newList = []
     for item in b:
         if item not in a:
@@ -17,6 +17,8 @@ def merge(a, b):
     Added {len(newList)} files at {currentTime}. Total songs are {len(get2())}
                         """)
     print(f"Added {len(newList)} files at {currentTime}. Total songs are {len(get2())}")  
+    if returnNumber:
+        return a + newList, len(newList)
     return a + newList
     
 

@@ -6,7 +6,7 @@ from sys import exit
 from analyze import analyze, merge
 from table import generate
 from read import get1,get2
-from write import write
+from write import write, log
 from vars import getDownloadedData, useAPI
 from cloud import downloadFromDrive,backupToDrive
 
@@ -24,9 +24,9 @@ def main(continueAnyways=False):
     
     if path.exists(dataDir) and getDownloadedData:
         if not useAPI:
-            StreamingHistory = merge(get1(),get2())
+            StreamingHistory,length = merge(get1(),get2(),True)
         else:
-            StreamingHistory = merge(merge(get1(), get_tracks()),get2())
+            StreamingHistory,length = merge(merge(get1(), get_tracks()),get2(),True)
         if(StreamingHistory == get2() and not continueAnyways):
             try:
                 print("program halted as nothing to write")
@@ -39,6 +39,7 @@ def main(continueAnyways=False):
                 downloadFromDrive()
             except Exception as e:
                 print(f"An error occured: {e}")
+            log(length)
             write(StreamingHistory)
         
 
