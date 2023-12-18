@@ -7,14 +7,13 @@ from analyze import analyze, merge
 from table import generate
 from read import get1,get2
 from write import write, log
-from vars import getDownloadedData, useAPI, usePushbullet
+from vars import getDownloadedData, useAPI
 from cloud import downloadFromDrive,backupToDrive
 
 if useAPI:
     from apicall import get_tracks
 
-if usePushbullet:
-    from notify import notify
+from notify import notify
 
 def main(continueAnyways=False):
     chdir(__file__.replace('main.py',""))#When run from the command line in some sort of automation like crontab, will change directory to this directory so that all other important files are there
