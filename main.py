@@ -7,12 +7,14 @@ from analyze import analyze, merge
 from table import generate
 from read import get1,get2
 from write import write, log
-from vars import getDownloadedData, useAPI
+from vars import getDownloadedData, useAPI, usePushbullet
 from cloud import downloadFromDrive,backupToDrive
 
 if useAPI:
     from apicall import get_tracks
 
+if usePushbullet:
+    from notify import notify
 
 def main(continueAnyways=False):
     chdir(__file__.replace('main.py',""))#When run from the command line in some sort of automation like crontab, will change directory to this directory so that all other important files are there
@@ -39,6 +41,7 @@ def main(continueAnyways=False):
                 downloadFromDrive()
             except Exception as e:
                 print(f"An error occured: {e}")
+                notify(f"An error occured in Unwrapped: {e}. You may need to sign in again to google for the application to function correctly.")
             log(length)
             write(StreamingHistory)
         
@@ -64,6 +67,7 @@ def main(continueAnyways=False):
                 downloadFromDrive()
             except Exception as e:
                 print(f"An error occured: {e}")
+                notify(f"An error occured in Unwrapped: {e}. You may need to sign in again to google for the application to function correctly.")
             log(length)
             write(StreamingHistory)
         
