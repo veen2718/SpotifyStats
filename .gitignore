@@ -14,3 +14,6 @@ googleapi.json
 token.json
 fileId.json
 display.py
+data/*
+!data
+!data/gitBackup.py
