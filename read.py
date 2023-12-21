@@ -1,6 +1,8 @@
 import os
 import json
 
+from files import readJson
+
 
 def get1(): #Getting history from Downloaded Data
     accountData = os.listdir("Spotify Account Data")
@@ -17,25 +19,17 @@ def get1(): #Getting history from Downloaded Data
     return StreamingHistory
 
 def get2(): #Getting history from history.json
-    if 'history.json' not in os.listdir():
-        print("Creating history.json file")
-        with open('history.json','w') as history:
-            pass
-    with open('history.json','r') as history:
-        data = history.read()
-        json_data = []
-        if data != "":
-            json_data = json.loads(data)
-        StreamingHistory = []
-        for data in json_data:
-            newData = {
-                'endTime':data['endTime'],
-                'artistName':data['artistName'],
-                'trackName': data['trackName'],
-                'msPlayed':data['msPlayed'],
-                'duration_ms':data['duration_ms'],
-                       }
-            
-            StreamingHistory.append(newData)
+    json_data = readJson('data/history.json')
+    StreamingHistory = []
+    for data in json_data:
+        newData = {
+            'endTime':data['endTime'],
+            'artistName':data['artistName'],
+            'trackName': data['trackName'],
+            'msPlayed':data['msPlayed'],
+            'duration_ms':data['duration_ms'],
+                    }
         
-        return StreamingHistory
+        StreamingHistory.append(newData)
+        
+    return StreamingHistory

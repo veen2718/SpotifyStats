@@ -3,6 +3,7 @@ import json
 import pytz
 
 from read import get2
+from files import readJson, writeJson
 
 def parse_time(data,time='endTime'):
     try:
@@ -11,15 +12,15 @@ def parse_time(data,time='endTime'):
         return datetime.strptime(data[time], '%Y-%m-%d %H:%M')
 
 
-def log(length):
+def log(length,path='data/logs.json'):
     pdt_zone = pytz.timezone("America/Los_Angeles") 
     currentTime = datetime.now(pdt_zone).strftime('%Y-%m-%d %H:%M:%S %Z')
     if length > 0:
-        with open('logs.txt','a') as logs:
-            logs.write(f"""
-    Added {length} files at {currentTime}. Total songs are {len(get2())}
-                        """)
-    print(f"Added {length} files at {currentTime}. Total songs are {len(get2())}")  
+        messege = f"Added {length} songs at {currentTime}. Total songs are {len(get2())}"
+        oldLogs = readJson(path)
+        oldLogs.append({currentTime: messege})
+        writeJson(path,oldLogs)
+    print(f"Added {length} songs at {currentTime}. Total songs are {len(get2())}")  
 
 
 
@@ -43,8 +44,7 @@ def write(history):
     
     sortedHistory = sorted(newHistory, key=parse_time)
     print("About to write to history.json")
-    with open('history.json','w') as historyjson:
-        json.dump(sortedHistory, historyjson,indent=4)
+    writeJson('data/history.json', sortedHistory)
     print("Written to history.json")
 
 

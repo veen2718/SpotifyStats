@@ -8,7 +8,8 @@ from table import generate
 from read import get1,get2
 from write import write, log
 from vars import getDownloadedData, useAPI
-
+from files import setupFiles
+from gitbackup import download, upload
 
 if useAPI:
     from apicall import get_tracks
@@ -22,23 +23,19 @@ def main(continueAnyways=False):
 
     dataDir = path.join(fileDir, 'Spotify Account Data')
 
-    
+    setupFiles()
+    download()
+
     if path.exists(dataDir) and getDownloadedData:
         if not useAPI:
             StreamingHistory,length = merge(get1(),get2(),True)
         else:
             StreamingHistory,length = merge(merge(get1(), get_tracks()),get2(),True)
-        if(StreamingHistory == get2() and not continueAnyways):
-            try:
-                print("program halted as nothing to write")
-                exit()#Exits program to avoid overuse API calls if there are no changes
-            except Exception as e:
-                print(f"This error is expected to occur, program halted as nothing to write: {e}")
-        else:
-            print("Continuing flow")
-            log(length)
-            write(StreamingHistory)
         
+        print("Continuing flow")
+        log(length)
+        write(StreamingHistory)
+    
 
         write(StreamingHistory)
         rmtree(dataDir)
@@ -48,18 +45,11 @@ def main(continueAnyways=False):
         else:
             StreamingHistory = get2()
         
-        if(StreamingHistory == get2() and not continueAnyways):
-            try:
-                print("program halted as nothing to write")
-                exit()#Exits program to avoid overuse API calls if there are no changes
-               
-            except Exception as e:
-                print(f"This error is expected to occur, program halted as nothing to write: {e}")
-        else:
-            print("Continuing flow")
-            log(length)
-            write(StreamingHistory)
-
+        
+        print("Continuing flow")
+        log(length)
+        write(StreamingHistory)
+    upload()
 
     
 
