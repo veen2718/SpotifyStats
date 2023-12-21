@@ -8,7 +8,7 @@ from table import generate
 from read import get1,get2
 from write import write, log
 from vars import getDownloadedData, useAPI
-from cloud import downloadFromDrive,backupToDrive
+
 
 if useAPI:
     from apicall import get_tracks
@@ -36,11 +36,6 @@ def main(continueAnyways=False):
                 print(f"This error is expected to occur, program halted as nothing to write: {e}")
         else:
             print("Continuing flow")
-            try:
-                downloadFromDrive()
-            except Exception as e:
-                print(f"An error occured: {e}")
-                notify(f"An error occured in Unwrapped: {e}. You may need to sign in again to google for the application to function correctly.")
             log(length)
             write(StreamingHistory)
         
@@ -62,19 +57,9 @@ def main(continueAnyways=False):
                 print(f"This error is expected to occur, program halted as nothing to write: {e}")
         else:
             print("Continuing flow")
-            try:
-                downloadFromDrive()
-            except Exception as e:
-                print(f"An error occured: {e}")
-                notify(f"An error occured in Unwrapped: {e}. You may need to sign in again to google for the application to function correctly.")
             log(length)
             write(StreamingHistory)
-        
-    try:
-        backupToDrive() 
-    except Exception as e:
-        print(f"An error occured: {e}")
-       
+
 
     
 
