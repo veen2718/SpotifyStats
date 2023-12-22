@@ -7,7 +7,7 @@ from analyze import analyze, merge
 from table import generate
 from read import get1,get2
 from write import write, log
-from vars import getDownloadedData, useAPI
+from vars import getDownloadedData, useAPI,useGithubBackup
 from files import setupFiles
 from gitbackup import download, upload
 
@@ -20,10 +20,10 @@ def main():
     fileDir = path.dirname(filePath)#The directory the python file is in
 
     dataDir = path.join(fileDir, 'Spotify Account Data')
+    if useGithubBackup:
+        setupFiles()
 
-    setupFiles()
-
-    download()
+        download()
 
     if path.exists(dataDir) and getDownloadedData:
         
@@ -57,8 +57,8 @@ def main():
         print("about to write data to history.json")
         write(StreamingHistory)
         print("wrote data to history.json")
-
-    upload()
+    if useGithubBackup:
+        upload()
 
     
 
