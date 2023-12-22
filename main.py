@@ -14,8 +14,6 @@ from gitbackup import download, upload
 if useAPI:
     from apicall import get_tracks
 
-from notify import notify
-
 def main():
     chdir(__file__.replace('main.py',""))#When run from the command line in some sort of automation like crontab, will change directory to this directory so that all other important files are there
     filePath = path.abspath(__file__)
