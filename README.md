@@ -54,8 +54,6 @@ Do all the following steps if you want to use the Spotify API:
 
     client_id_spotify = "YOUR_SPOTIFY_CLIENT_ID"
     client_secret_spotify = "YOUR_SPOTIFY_CLIENT_SECRET"
-    access_token_pushbullet = "YOUR_PUSHBULLET_ACCESS_TOKEN"
-
     ```
 
 - Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with your Spotify Client ID and Secret from earlier. 
