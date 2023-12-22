@@ -92,6 +92,8 @@ There are multiple variables the user can change in the vars.py file
 
 `useAPI`: If this is False, will not use the Spotify API, and will just use downloaded data
 
+`useGithubBackup`: If this is set to False, will not use Github for backup
+
 ### Updating to newer version
 When updating to a newer version, simply copy the history.json file into the folder with the new release 
 
