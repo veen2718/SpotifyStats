@@ -27,34 +27,20 @@ Click on 'create an app', and pick an 'App name' and 'App description', the name
 
 After creation, you can see your Client ID and Client Secret, which you will need in the next step
 
-### Getting Google Drive API
-
-Note: The API can randomly expire. This means that if you are automating this on multiple devices as suggested, you may need to manually sign-in again. 
-
-The purpose of this is so that you can have this program automated on multiple devices. For example, if you have a laptop and a desktop, you can have the program automated on both devices, so the script can still collect data from spotify when one device isn't being used. Alternatively, if you have something like a Raspberry Pi, you can use that purely for automation, and you can access and view the data from a different computer. 
-
-Go to https://console.cloud.google.com/, and create a project. In the dashboard, navigate to 'Library' and then search for the "Google Drive API" and enable it. 
-
-Go to OAuth Consent Screen, and set user type to external. Then click continue, and choose any app name, and your support email. You don't need to choose a logo file, and leave the App domain section blank. Put your email under Developer Contact information. Save and continue.
-
-Now in scopes, click 'ADD OR REMOVE SCOPES'. Under Manually add scopes, paste this entire url: "https://www.googleapis.com/auth/drive.file", make sure to keep the https://, and click 'ADD TO TABLE' and then 'UPDATE'. Click Save and Continue. 
-
-Now in Test users, click Add Users. Enter the gmail address you want your data to be backed up to, and click enter. (This gmail account can be the same one that you are using to make this app) Click Save and Continue. 
-
-Now, in the sidebar, click Credentials. Now click 'CREATE CREDENTIALS' and click 'OAuth client ID'. For application type, select Desktop App. For Name, put whatever. Click CREATE. There will be a popup, saying OAuth client created. Click download json, and make sure that you have renamed it as 'googleapi.json' and that you have saved it in the Unwrapped folder. 
+### Setting up Github Credentials for backup
+The next step is to setup GitHub credentials for backup. This is recommended so that you can set up this same script on multiple devices, or if possible a raspberry pi or something such that you can easily automate this script to run once every hour or so. This is because although you were able to get much of your data by requesting it from Spotify, when using the spotify API to get data, it is only possible to get the 50 most recent tracks. This is why it is beneficial to automate this process so that you will always have the most accurate version of your Spotify data. 
 
 
-Now that you have the credentials, you can run main.py, It will say 'Please visit this URL to authorize this application' or just open a link directly in your browser.When the link is opened it will say something along the lines of 'This app hasn't been verified by google'. This is normal, and you know the app is completely safe as you have just set up up in the google cloud console. Just continue, and then sign into a gmail account that you made a 'Test User', in a previous step. If you get a 'something went wrong', copy the link given into an incognito tab and try again. From there you should be able to give this app permission to edit its own files inside your google drive. 
-
-### Getting Pushbullet API
-
-This is for the purpose of notifying you when uploading or downloading to Google Drive fails, as this can happen randomly and will usually require having to manually log in again for the app to continue to function. 
-
-Go to pushbullet.com and sign in. Then go to settings and click 'Create Access Token'. Save this as it wont be visible again and will be needed again later. 
-
-Install the pushbullet mobile app, and sign in with the same account you signed in on pushbullet.com, and it will guide you through setup. 
+#### Creating a Github Repo
+On the Github website, click create a new repository, and ensure that it is set to private, and choose whatever name you want. It will take you to a page that will have a section labeled Quick Setup. Make sure it is set to https and copy the link. Open the gitcredentials.py file, and set the `repoURL` variable to that link. Then set the `username` variable to your username.
 
 
+#### Creating a Github Personal Access Token
+You will need to create a Github personal access token instead of a password. On the github website, click your profile picture, and click settings. Then click Developer Settings. Then click Personal Access token and click Fine-grained token, and click new. Choose any token name. For expiration, choose a custom date an year from the day you set this up, which is the maximum. You will need to regenerate the token. Under repository access click All repositories or Only select repositories, and select the repository you created. 
+
+Under Permissions and Repository Permissions, give the token read and write access to commit statuses, contents and administration.
+
+Then click generate token, and copy the token to the `password` variable in the gitcredentials.py file.
 
 ### Setting up the python script
 
