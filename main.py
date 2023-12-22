@@ -16,7 +16,7 @@ if useAPI:
 
 from notify import notify
 
-def main(continueAnyways=False):
+def main():
     chdir(__file__.replace('main.py',""))#When run from the command line in some sort of automation like crontab, will change directory to this directory so that all other important files are there
     filePath = path.abspath(__file__)
     fileDir = path.dirname(filePath)#The directory the python file is in
@@ -24,14 +24,20 @@ def main(continueAnyways=False):
     dataDir = path.join(fileDir, 'Spotify Account Data')
 
     setupFiles()
+
     download()
 
     if path.exists(dataDir) and getDownloadedData:
-        if not useAPI:
-            StreamingHistory,length = merge(get1(),get2(),True)
-        else:
-            StreamingHistory,length = merge(merge(get1(), get_tracks()),get2(),True)
         
+        if not useAPI:
+            print("about to get data from Spotify Account Data folder and history.json")
+            StreamingHistory,length = merge(get1(),get2(),True)
+            print("got data from Spotify Account Data folder and history.json")
+        else:
+            print("about to get data from Spotify Account Data folder, Spotify API and history.json")
+            StreamingHistory,length = merge(merge(get1(), get_tracks()),get2(),True)
+            print("got data from Spotify Account Data folder, Spotify API and history.json")
+
         print("Continuing flow")
         log(length)
         write(StreamingHistory)
@@ -41,14 +47,19 @@ def main(continueAnyways=False):
         rmtree(dataDir)
     else:
         if useAPI:
+            print("about to get data from Spotify API and history.json")            
             StreamingHistory, length = merge(get2(), get_tracks(),True)
+            print("got data from Spotify API and history.json")
         else:
+            print("about to get data from history.json")
             StreamingHistory = get2()
+            print("got data from history.json")
         
-        
-        print("Continuing flow")
         log(length)
+        print("about to write data to history.json")
         write(StreamingHistory)
+        print("wrote data to history.json")
+
     upload()
 
     

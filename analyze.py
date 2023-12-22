@@ -11,11 +11,6 @@ def merge(a, b,returnNumber=False):
     print(f"Merged Succesfully adding {len(newList)} items")
     pdt_zone = pytz.timezone("America/Los_Angeles") 
     currentTime = datetime.now(pdt_zone).strftime('%Y-%m-%d %H:%M:%S %Z')
-    if len(newList) > 0:
-        with open('logs.txt','a') as logs:
-            logs.write(f"""
-    Added {len(newList)} files at {currentTime}. Total songs are {len(get2())}
-                        """)
     print(f"Added {len(newList)} files at {currentTime}. Total songs are {len(get2())}")  
     if returnNumber:
         return a + newList, len(newList)

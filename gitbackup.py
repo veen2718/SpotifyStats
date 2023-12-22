@@ -22,7 +22,8 @@ def initializeRepo(directory=defaultPath):
     
     if repo.head.ref.name != 'main':
         repo.git.branch('-M', 'main')
-    
+        print("added Main branch to repo")
+
     setRemote(repo)
     return repo
 
@@ -34,6 +35,7 @@ def setRemote(repo, remoteURL=repoURL, remoteName='origin'):
     else:
         remote = repo.remotes[remoteName]
         remote.set_url(remoteURL)
+    print(f"set {remoteName} as remote ")
     return remote
 
 
@@ -59,6 +61,7 @@ def pushChanges(repo, remoteName='origin'):
     try:
         repo.git.add(A=True)  # Add all files
         repo.index.commit(f"Backup at {currentTime}")
+        print("Added and committed files")
     except Exception as e:
         print(f"Error occurred while adding and committing: {e}")
     try:
@@ -84,6 +87,7 @@ def download():
     shutil.move('data/history.json','temp/history.json')
     shutil.move('data/logs.json','temp/logs.json')
     shutil.rmtree('data')
+    print("moved existing files to temp dir")
     cloneRepo()
     setupFiles()
     for jsonFile in ['history.json', 'logs.json']:
@@ -91,6 +95,7 @@ def download():
         data2 = readJson(f'temp/{jsonFile}')
         mergedData = merge(data1, data2)
         writeJson(f'data/{jsonFile}', mergedData)
+        print(f"Merged {jsonFile} from remote and local")
         try:
             os.remove(f'temp/{jsonFile}')
         except Exception as e:
