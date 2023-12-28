@@ -31,8 +31,6 @@ def write(history):
         newStory['endTime'] = story['endTime']
         if type(story['artistName']) in [list, tuple]:
             newStory['artistName'] = tuple(story['artistName'])
-        if type(story['artistName']) == list:
-            print("A list",story['artistName'], newStory['artistName'])
         else:
             newStory['artistName'] = tuple(story['artistName'])
         # newStory['artistName'] = story['artistName']
@@ -64,7 +62,9 @@ def fix():
         for artist in artists:
             if artist not in artistsInMultipleArtists2:
                 artistsInMultipleArtists2.append(artist)
-    print(artistsInMultipleArtists2)
+
+
+    fixedSongs = 0 
     for data in json_data:
         artists = data['artistName']
         if len(artists) == 1 and artists[0] in artistsInMultipleArtists2:
@@ -73,10 +73,10 @@ def fix():
                 if otherData['trackName'] == data['trackName']:
                     if artist in otherData['artistName']:
                         data['artistName'] = otherData['artistName']
-                        print("fixed: ", artist,data['trackName'],otherData['artistName'],json_data.index(data))
+                        fixedSongs += 1
     
     writeJson('data/history.json',json_data)
-    print("finished fixing incomplete artists")
+    print(f"finished fixing incomplete artists, fixed {fixedSongs} tracks")
 
 def prune():#Removes duplicate entries, meaning exact time must match, as well as artist and track names
     print("about to start pruning")
@@ -86,7 +86,6 @@ def prune():#Removes duplicate entries, meaning exact time must match, as well a
     for entry in data:
         if entry in prunedData:
             prunedCount += 1
-            print(f"pruned: {entry}")
         else:
             prunedData.append(entry)
             

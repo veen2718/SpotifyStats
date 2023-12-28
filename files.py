@@ -13,6 +13,7 @@ def writeJson(name, data):
 
 
 def setupFiles():
+    print("Setting up files...")
     if 'data' not in listdir():
         mkdir('data')
     filesPaths = [
@@ -26,3 +27,4 @@ def setupFiles():
     
     if 'temp' not in listdir():
         mkdir('temp')
+    print("finished setting up files")

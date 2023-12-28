@@ -20,51 +20,51 @@ def main():
     fileDir = path.dirname(filePath)#The directory the python file is in
 
     dataDir = path.join(fileDir, 'Spotify Account Data')
+
+
     if useGithubBackup:
         setupFiles()
-
         download()
 
+    data1 = []
+    data2 = []
+    data3 = []
+
     if path.exists(dataDir) and getDownloadedData:
-        
-        if not useAPI:
-            print("about to get data from Spotify Account Data folder and history.json")
-            StreamingHistory,length = merge(get1(),get2(),True)
-            print("got data from Spotify Account Data folder and history.json")
-        else:
-            print("about to get data from Spotify Account Data folder, Spotify API and history.json")
-            StreamingHistory,length = merge(merge(get1(), get_tracks()),get2(),True)
-            print("got data from Spotify Account Data folder, Spotify API and history.json")
-
-        print("Continuing flow")
-        log(length)
-        write(StreamingHistory)
-    
-
-        write(StreamingHistory)
+        print("about to get data from Spotify Account Data Folder")
+        data1 = get1()
+        print("got data from Spotify Account Data Folder")
+        print("about to delete Spotify Account Data Folder")
         rmtree(dataDir)
-    else:
-        if useAPI:
-            print("about to get data from Spotify API and history.json")            
-            StreamingHistory, length = merge(get2(), get_tracks(),True)
-            print("got data from Spotify API and history.json")
-        else:
-            print("about to get data from history.json")
-            StreamingHistory ,length = merge(get2(),[],True)
-            print("got data from history.json")
-        
-        log(length)
-        print("about to write data to history.json")
-        write(StreamingHistory)
-        print("wrote data to history.json")
-    
+        print("Deleted Spotify account Data folder")
+
+    if useAPI:
+        print("About to get data from Spotify API")
+        data2 = get_tracks()
+        print("Got data from spotify API")
+
+    print("About to get data from history.json")
+    data3 = get2()
+    print("Got data from history.json")
+
+    size0 = len(data3)
+
+    merged1 = merge(data1,data2)
+    StreamingHistory = merge(merged1,data3)
+
+    print("About to write streaming history to history.json")
+    write(StreamingHistory)
+    print("Wrote to history.json")
     fix()
     prune()
+
+    sizef = len(get2())
+    difference = sizef-size0
+    log(difference)
 
     if useGithubBackup:
         upload()
 
-    
 
     tableData = analyze(StreamingHistory)
     artistStats = tableData[0]

@@ -49,4 +49,3 @@ def get_tracks():
   return tracks
 
 
-get_tracks()
