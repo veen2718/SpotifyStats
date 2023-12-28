@@ -6,7 +6,7 @@ from sys import exit
 from analyze import analyze, merge
 from table import generate
 from read import get1,get2
-from write import write, log
+from write import write, log, fix, prune
 from vars import getDownloadedData, useAPI,useGithubBackup
 from files import setupFiles
 from gitbackup import download, upload
@@ -50,13 +50,17 @@ def main():
             print("got data from Spotify API and history.json")
         else:
             print("about to get data from history.json")
-            StreamingHistory = get2()
+            StreamingHistory ,length = merge(get2(),[],True)
             print("got data from history.json")
         
         log(length)
         print("about to write data to history.json")
         write(StreamingHistory)
         print("wrote data to history.json")
+    
+    fix()
+    prune()
+
     if useGithubBackup:
         upload()
 

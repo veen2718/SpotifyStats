@@ -31,14 +31,22 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id_spotify,
 def get_tracks():
   tracks = []
   recent_tracks = sp.current_user_recently_played(limit=50)
+  
   for track in recent_tracks['items']:
+     artists = track['track']['artists']
+     artists = [artists[i]['name'] for i in range(len(artists))]
      tracks.append({
         "endTime":timefix(track['played_at']),
         "trackName":track['track']['name'],
-        "artistName":track['track']['artists'][0]['name'],
+        "artistName":artists,
         "duration_ms":track['track']['duration_ms'],
         "msPlayed":None,
      })
-    
+
+     x = track
+
   print("Got tracks from Spotify API")
   return tracks
+
+
+get_tracks()

@@ -30,14 +30,16 @@ def analyze(StreamingHistory):
         count = 0
         if mPlayed >= mMin:
             count = 1
-        if artistName != 'Unknown Artist':
+        artistName = tuple(artistName)
+        if artistName != ('Unknown Artist'):
         #storing data for artists
-            if artistName in statsArtists:
-                oldCount = statsArtists[artistName][0]
-                oldM = statsArtists[artistName][1]
-                statsArtists[artistName] = [oldCount + count, oldM + mPlayed]
-            else:
-                statsArtists[artistName] = [count, mPlayed]
+            for artist in artistName:
+                if artist in statsArtists:
+                    oldCount = statsArtists[artist][0]
+                    oldM = statsArtists[artist][1]
+                    statsArtists[artist] = [oldCount + count, oldM + mPlayed]
+                else:
+                    statsArtists[artist] = [count, mPlayed]
 
             #storing data for tracks
             key = (trackName, artistName)
