@@ -24,7 +24,7 @@ def log(Length,path='data/logs.json'):
 
 
 
-def write(history):
+def write(history,jsonFile='data/history.json'):
     newHistory = []
     for story in history:
         newStory = {}
@@ -48,7 +48,7 @@ def write(history):
     
     sortedHistory = sorted(newHistory, key=parse_time)
     print("About to write to history.json")
-    writeJson('data/history.json', sortedHistory)
+    writeJson(jsonFile, sortedHistory)
     print("Written to history.json")
 
 
@@ -78,9 +78,9 @@ def fix():
     writeJson('data/history.json',json_data)
     print(f"finished fixing incomplete artists, fixed {fixedSongs} tracks")
 
-def prune():#Removes duplicate entries, meaning exact time must match, as well as artist and track names
+def prune(jsonFile='data/history.json'):#Removes duplicate entries, meaning exact time must match, as well as artist and track names
     print("about to start pruning")
-    data = readJson('data/history.json')
+    data = readJson(jsonFile)
     prunedData = []
     prunedCount = 0
     for entry in data:
@@ -91,7 +91,7 @@ def prune():#Removes duplicate entries, meaning exact time must match, as well a
             
     if prunedCount > 0:
         print(f"Pruned {prunedCount} copies")
-        writeJson('data/history.json', prunedData)
+        writeJson(jsonFile, prunedData)
         log(prunedCount * -1)
 
     print("finished prining")

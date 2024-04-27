@@ -76,7 +76,10 @@ def pushChanges(repo, remoteName='origin'):
         remote.set_url(remoteURL)
         print(f"Pushing changes to {remoteName}...")
         print(repo.head.ref.name)
-        remote.push()
+        if repo.head.ref.tracking_branch() is None:
+            repo.git.push('--set-upstream', remoteName, repo.head.ref.name)
+        else:
+            remote.push()
         print("Changes pushed successfully.")
 
     except Exception as e:

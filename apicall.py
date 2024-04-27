@@ -30,6 +30,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id_spotify,
 
 def get_tracks():
   tracks = []
+  albums = []
   recent_tracks = sp.current_user_recently_played(limit=50)
   
   for track in recent_tracks['items']:

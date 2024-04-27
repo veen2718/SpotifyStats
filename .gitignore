@@ -19,3 +19,5 @@ gitcredentials.py
 temp/*
 !temp
 fixhistory.py
+temp.py
+temp.json

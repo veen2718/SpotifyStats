@@ -50,7 +50,7 @@ def main():
     size0 = len(data3)
 
     merged1 = merge(data1,data2)
-    StreamingHistory = merge(merged1,data3)
+    StreamingHistory = merge(data3,merged1)
 
     print("About to write streaming history to history.json")
     write(StreamingHistory)
