@@ -29,10 +29,15 @@ def write(history,jsonFile='data/history.json'):
     for story in history:
         newStory = {}
         newStory['endTime'] = story['endTime']
-        if type(story['artistName']) in [list, tuple]:
-            newStory['artistName'] = tuple(story['artistName'])
+        try:
+            if type(story['artistName']) in [list, tuple]:
+                newStory['artistName'] = tuple(story['artistName'])
+        except Exception as e:
+            print(e)
+            print(json.dumps(story, indent=4))
+            raise ValueError("Could not write")
         else:
-            newStory['artistName'] = tuple(story['artistName'])
+            newStory['artistName'] = (story['artistName'],)
         # newStory['artistName'] = story['artistName']
         newStory['trackName'] = story['trackName']
         if 'msPlayed' in story:

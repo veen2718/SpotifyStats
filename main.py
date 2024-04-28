@@ -35,7 +35,7 @@ def main():
         data1 = get1()
         print("got data from Spotify Account Data Folder")
         print("about to delete Spotify Account Data Folder")
-        rmtree(dataDir)
+        #rmtree(dataDir)
         print("Deleted Spotify account Data folder")
 
     if useAPI:

@@ -7,7 +7,7 @@ from files import readJson, writeJson
 def get1(): #Getting history from Downloaded Data
     accountData = os.listdir("Spotify Account Data")
 
-    StreamingHistories = [data for data in accountData if "StreamingHistory" in data]
+    StreamingHistories = [data for data in accountData if "StreamingHistory_music" in data]
     StreamingHistory = []
 
 
